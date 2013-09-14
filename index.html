@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang='ja'>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>うちリモコン</title>
+    <link rel='stylesheet' href='http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css' />
+    <script src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
+    <script src='http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js'></script>
+    <script type='text/javascript'>"
+      "function remocon(arg){"
+      "$.ajax({"
+      "type:'POST',"
+      "url:'192.168.11.8',"
+      "cache:false,"
+      "data:arg,"
+      "success: function(res){"
+      //"alert(res);"
+      "}"
+      "})}"
+      "</script>
+    //<link rel='stylesheet' href='uchirimo/style.css'>
+  </head>
+  <body>
+
+
+    <div data-role='page' id='top'>
+      <div data-role='header'><h1>うちリモコン</h1></div>
+      <div data-role='content'>
+        <a href='#dvdmate' data-transition='slide'>DVD mate</a>
+    </div><div data-role='footer'><h4>only for watanabe ke</h4></div></div>
+
+    <div data-role='page' id='dvdmate'>
+      <div data-role='header'><h1>Disny DVD mate</h1></div>
+      <div data-role='content'>
+        <input type='button' value='再生' onClick=\"remocon('dvd_mate_play');\">
+        <input type='button' value='停止' onClick=\"remocon('dvd_mate_stop');\">
+    </div><div data-role='footer'><h4>only for watanabe ke</h4></div></div>
+
+  </body>
+</html>
