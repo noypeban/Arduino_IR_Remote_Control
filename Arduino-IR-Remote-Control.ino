@@ -59,6 +59,7 @@ void loop()
         if(n==0){
           client.println("HTTP/1.1 200 OK");
           client.println("Content-Type: text/html");
+          client.println("Access-Control-Allow-Origin: *");
           client.println();
           client.println("can't get any data.");
           delay(1);
