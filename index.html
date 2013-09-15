@@ -10,12 +10,13 @@
     <script src='http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js'></script>
     <script type='text/javascript'>
       function remocon(arg){
-        alert(arg);
+        //alert(arg);
       $.ajax({
       type:'POST',
       url:'http://192.168.11.8/',
       cache:false,
       data:arg,
+      dataType:'html',
       success: function(res){
       alert(res);
       }

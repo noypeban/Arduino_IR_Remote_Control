@@ -46,9 +46,10 @@ void loop()
     while(client.connected()){
       if(client.available()){
         char c = client.read();
+        //Serial.print(c);
         if(c=='\n'){
           readstring[n]='\0';
-          Serial.println(readstring);
+          //Serial.println(readstring);
           sprintf(readstring, "");
           n=0;
         }else{
@@ -59,16 +60,21 @@ void loop()
         if(n==0){
           client.println("HTTP/1.1 200 OK");
           client.println("Content-Type: text/html");
-          client.println("Access-Control-Allow-Origin: *");
           client.println();
+          client.println("Access-Control-Allow-Origin: *");
           client.println("can't get any data.");
           delay(1);
           client.stop();
         }else{
+        Serial.println(readstring);
           client.println("HTTP/1.1 200 OK");
           client.println("Content-Type: text/html");
           client.println();
+          client.println("Access-Control-Allow-Origin: *");
+          client.println("<html><head></head><body>");
+          client.println("posted data<br/>");
           client.println(readstring);
+          client.println("</body></heml>");
           delay(1);
           client.stop();
         }
