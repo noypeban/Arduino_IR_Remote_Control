@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>myリモコン</title>
+    <title>Arduino_IR_Remote_Control</title>
     <link rel='stylesheet' href='http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css'/>
     <script src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
     <script src='http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js'></script>
@@ -24,20 +24,29 @@
   </head>
   <body>
     <div data-role='page' id='top'>
-      <div data-role='header'><h1>うちリモコン</h1></div>
+      <div data-role='header'><h1>Arduino_IR_Remote_Control</h1></div>
       <div data-role='content'>
-        <a href='#dvdmate' data-transition='slide'>DVD mate</a>
+        <div>
+          <a href='#dvdmate' data-transition='slide'>Disny DVD mate</a>
+        </div>
+        <div>
+          <a href='http://192.168.11.8/?mode=receive' data-transition='slide'>リモコンの追加</a>
+        </div>
+        <div>
+          <a href='http://192.168.11.8/?mode=test' data-transition='slide'>送信テスト</a>
+        </div>
       </div>
+      <!--
       <div data-role='footer'><h4>only for watanabe ke</h4></div>
+      -->
     </div>
 
     <div data-role='page' id='dvdmate'>
       <div data-role='header'><h1>Disny DVD mate</h1></div>
       <div data-role='content'>
         <input type='button' value='再生' onClick="remocon('905,440,63,46,66,158,66,47,63,46,66,47,63,47,66,47,64,46,63,160,64,160,63,160,64,160,64,159,64,160,63,158,67,157,66,46,63,47,67,46,64,159,64,159,64,46,64,159,64,46,66,157,66,158,65,158,63,50,64,46,64,160,64,46,66,157,66,3850,905,213,66,');">
-        <input type='button' value='停止' onClick="remocon('905,440,63,46,66,158,66,47,63,46,66,47,63,47,66,47,64,46,63,160,64,160,63,160,64,160,64,159,64,160,63,158,67,157,66,46,63,47,67,46,64,159,64,159,64,46,64,159,64,46,66,157,66,158,65,158,63,50,64,46,64,160,64,46,66,157,66,3850,905,213,66');">
+        <input type='button' value='停止' onClick="remocon('902,440,63,54,59,158,66,54,56,54,60,54,55,54,59,54,56,54,60,156,63,161,64,160,64,160,63,160,63,160,63,158,66,158,66,158,65,54,56,54,58,158,63,54,59,59,54,158,63,54,59,54,56,160,63,160,64,54,58,158,63,160,63,54,59,158,66,3851,905,213,65,9564,907,216,64');">
       </div>
-      <div data-role='footer'><h4>only for watanabe ke</h4></div>
     </div>
   </body>
 </html>
