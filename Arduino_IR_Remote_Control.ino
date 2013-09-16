@@ -178,11 +178,11 @@ int waitHigh() {
  
 void receiveIR( EthernetClient& client ){
   unsigned long now;
-  unsigned long lastStateChangedMicros = 0;
+  unsigned long lastStateChangedMicros;
   int state = HIGH_STATE;
   unsigned int cnt = 0;
   while(1){
-    if (++cnt>=30000 && lastStateChangedMicros){
+    if (++cnt>=3000){
       return;
     }
     if (state == LOW_STATE) {
