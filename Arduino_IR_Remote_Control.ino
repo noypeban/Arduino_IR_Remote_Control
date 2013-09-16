@@ -8,7 +8,7 @@
 
 unsigned char MACADDRESS[] = { 0x90, 0xA2, 0xDA, 0x00, 0xF9, 0x44 };
 unsigned char IPADDRESS[] = { 192, 168, 11, 8 };
-int irData[128];
+unsigned int irData[128];
 char readstring[512];
 
 EthernetServer server(80);
@@ -80,8 +80,8 @@ void loop()
           delay(1);
           client.stop();
 
-          int testdata[71] = {905,440,63,46,66,158,66,47,63,46,66,47,63,47,66,47,64,46,63,160,64,160,63,160,64,160,64,159,64,160,63,158,67,157,66,46,63,47,67,46,64,159,64,159,64,46,64,159,64,46,66,157,66,158,65,158,63,50,64,46,64,160,64,46,66,157,66,3850,905,213,66};
-          sendIr(testdata,71);
+          unsigned int testdata[75] = {902,440,63,53,59,157,66,53,57,53,59,54,56,54,59,54,56,54,57,160,63,161,62,161,64,160,63,160,63,160,63,158,65,158,66,53,57,54,59,54,56,161,64,160,63,53,57,160,64,53,59,158,66,158,66,158,63,53,59,53,57,160,63,53,60,157,66,3851,904,214,66,9567,905,216,66};
+          sendIr(testdata,75);
 
         }else if(n==0){
           client.println("HTTP/1.1 200 OK");
@@ -122,39 +122,53 @@ void parseCharAndSendIRData(char str[]){
   sendIr(irData,n);
 }
 
-void sendIr(int irData[],int length){
-  int now;
-  int until;
+void sendIr(unsigned int irData[],int length){
+  unsigned long now;
+  unsigned long lastStateChangedMicros;
+  boolean lastState;
+  unsigned long until;
+  boolean signal = true;
   boolean onMode;
   Serial.println("Send start");
+  //  引数の配列には、赤外線センサの出力がオンの時間、オフの時間が交互に記されている
+  //  赤外線LEDはセンサ出力がオフの時は終始オフでよいが、
+  //  センサ出力がオンの時は、13マイクロ秒ごとにオンオフを切り替える必要がある
   for(int i=0;i<length;i++){
     now = micros();
     onMode = (i%2==0);
+    //  センサ出力の次のオンオフタイミングを計算
     until = now + irData[i]*10;
     while(until>now){
       if(onMode){
+        //  センサ出力がオンなので、13マイクロ秒赤外線LEDを点灯する
+        //digitalWrite(PIN_IR_OUT,HIGH);
         PORTD = PORTD|B00000100;
       }
       delayMicroseconds(13);
+      //  センサ出力がオンでもオフでも、13マイクロ秒の休憩時間は必ず必要
+      //digitalWrite(PIN_IR_OUT,LOW);
       PORTD = PORTD&B11111011;
       delayMicroseconds(13);
+      //  次のセンサ出力処理に移るべき時かを毎回チェックする
       now = micros();
     }
   }
+  // データの欠損で最後につきっぱなしにならないよう、オフにしておく
+  //digitalWrite(PIN_IR_OUT,LOW);
   PORTD = PORTD&B11111011;
   Serial.println("Send finish");
   Serial.println();
 }
 
 void waitLow() {
-  while (digitalRead(READ_PIN)==LOW) {
+  while((~PIND & B10000000)==B10000000){
     ;
   }
 }
  
 int waitHigh() {
   unsigned long start = micros();
-  while (digitalRead(READ_PIN)==HIGH) {
+  while((PIND & B10000000)==B10000000){
     if (micros() - start > 5000000) {
       return 1;
     }
