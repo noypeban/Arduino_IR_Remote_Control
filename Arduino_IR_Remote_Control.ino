@@ -2,14 +2,13 @@
 #include <Ethernet.h>	// for Ethernet
 
 #define PIN_IR_OUT 2
-#define READ_PIN 8
+#define READ_PIN 7
 #define LOW_STATE 0
 #define HIGH_STATE 1
 
 unsigned char MACADDRESS[] = { 0x90, 0xA2, 0xDA, 0x00, 0xF9, 0x44 };
-unsigned char IPADDRESS[] = { 192, 168, 11, 8 };
 unsigned int irData[128];
-char readstring[512];
+char readstring[300];
 
 EthernetServer server(80);
 
@@ -24,8 +23,12 @@ void setup()
   pinMode(PIN_IR_OUT, OUTPUT);
   pinMode(READ_PIN,INPUT);
 
-  Ethernet.begin(MACADDRESS, IPADDRESS);
-  //Ethernet.begin(MACADDRESS);
+  if (Ethernet.begin(MACADDRESS) == 0){
+    Serial.println("Failed to configure Ethernet using DHCP");
+    // no point in carrying on, so do nothing forevermore:
+    for(;;)
+    ;
+  }
   Serial.print("IP Address:         ");
   Serial.println(Ethernet.localIP());
   Serial.print("Subnet Mask:        ");
