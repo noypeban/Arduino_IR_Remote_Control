@@ -1,81 +1,100 @@
 <!DOCTYPE HTML>
 <html lang='ja'>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>リモコン</title>
-    <link rel='stylesheet' href='http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css'/>
-    <script src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
-    <script src='http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js'></script>
-    <script type='text/javascript'>
-      function remocon(arg){
-        //alert(arg);
-        $.ajax({
-type:'POST',
-url:'http://192.168.11.8/',
-cache:false,
-data:arg,
-success: function(res){
-//alert(res);
-}
-})}
-</script>
-  </head>
-  <body>
-    <div data-role='page' id='top'>
-      <div data-role='header'><h1>リモコン</h1></div>
-      <div data-role='content'>
-        <div data-role="controlgroup">
-          <a href='#tv' data-theme="b" data-role="button" data-transition='slide'>テレビ</a>
-          <a href='#light' data-theme="b" data-role="button" data-transition='slide'>リビングの電気</a>
-          <a href='#dvdmate' data-theme="b" data-role="button" data-transition='slide'>Disny DVD mate</a>
-        </div>
-        <hr>
-        <div>
-          <a href='http://192.168.11.8/?mode=receive' data-transition='slide'>リモコンの追加</a>
-        </div>
-        <div>
-          <a href='http://192.168.11.8/?mode=test' data-transition='slide'>送信テスト</a>
-        </div>
-      </div>
-      <!--
-      <div data-role='footer'><h4>only for watanabe ke</h4></div>
-      -->
-    </div>
+    <head>
+	<meta charset='utf-8'>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<title>リモコン</title>
+	<link rel='stylesheet' href='http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css'/>
+	<script src='http://code.jquery.com/jquery-1.11.1.min.js'></script>
+	<script src='http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js'></script>
+	<script type='text/javascript'>
+	 function remocon(data){
+	     var val = parseInt(data, 16);
+	     $.post("http://192.168.11.16/ir", {"code":val});
+         }
+	 $(function(){
+	     $("button").click(function(e){
+		 console.log($(this).attr("value"));
+		 remocon($(this).attr("value"));
+	     })
+	 })
+	</script>
+    </head>
+    <body>
+	<div data-role='page' id='top'>
+	    <div data-role='header'><h1>リモコン</h1></div>
+	    <div data-role='content'>
+		<div data-role="controlgroup">
+		    <a href='#tv' data-theme="b" data-role="button" data-transition='slide'>テレビ</a>
+		    <a href='#light' data-theme="b" data-role="button" data-transition='slide'>リビングの電気</a>
+		    <a href='#dvdmate' data-theme="b" data-role="button" data-transition='slide'>Disny DVD mate</a>
+		</div>
+		<hr>
+		<div>
+		    <a href='http://192.168.11.8/?mode=receive' data-transition='slide'>リモコンの追加</a>
+		</div>
+		<div>
+		    <a href='http://192.168.11.8/?mode=test' data-transition='slide'>送信テスト</a>
+		</div>
+	    </div>
+	    <!--
+		 <div data-role='footer'><h4>only for watanabe ke</h4></div>
+	       -->
+	</div>
+	<div data-role='page' id='tv'>
+	    <div data-role='header'><h1>PhotoU TV</h1></div>
+	    <div data-role='content'>
+		<fieldset class="ui-grid-b">
+		    <div class="ui-block-a"><button class="ui-btn ui-icon-power ui-btn-icon-left" value="0x83807F">PWR</button></div>
+		    <div class="ui-block-b"><button class="ui-btn ui-icon-carat-u ui-btn-icon-left" value="0x8340BF">Vol+</button></div>
+		    <div class="ui-block-c"><button class="ui-btn" value="0x8348B7">TV</button></div>
 
-    <div data-role='page' id='tv'>
-      <div data-role='header'><h1>SHARP TV</h1></div>
-      <div data-role='content'>
-        <div data-role="controlgroup">
-          <input type='button' value='電源' onClick="remocon('80,129,58,53,53,53,53,53,53,53,53,53,53,141,58,150,58,53,53,149,58,53,53,54,58,54,52,139,58,54,52,4554,63,146,58,54,52,54,58,54,52,54,58,132,58,53,53,54,52,147,58,54,53,149,58,150,58,151,58,53,58,143,58,4343,64,145,58,53,53,53,58,53,53,53,53,53,53,135,58,151,58,53,53,148,58,54,52,54,52,54,52,145,58,54,52,4554,63,146,58,54,52,59,52,54,53,54,53,137,58,54,58,53,53,141,58,53,53,149,58,150,58,151,58,53,53,148,58,4343,64,145,58,53,53,53,58,53,53,54,52,54,52,135,58,150,58,54,52,149,58,54,58,59,52,54,52,135,58,54,52,4554,63,146,58,54,52,54,53,54,52,54,53,142,58,53,53,53,53,147,58,53,53,148,58,150,58,151,58,53,53,148,58,4343,64,145,58,53,53,53,53,53,53,54,52,54,52,141,58,150,58,54,58,144,58,54,52,54,52,54,52,145,58,54,52');">
-        </div>
-        <div data-role="controlgroup">
-          <input type='button' value='チャンネルUp' onClick="remocon('80,129,58,53,53,53,53,53,53,58,53,138,58,53,53,53,53,58,53,139,58,53,53,53,53,54,52,144,58,53,58,4653,63,146,58,54,52,54,58,54,52,54,52,54,52,136,58,151,58,151,58,54,52,149,58,151,58,151,58,53,53,148,58,4238,64,146,58,53,53,53,53,53,53,53,58,138,58,53,53,53,53,58,53,139,58,53,53,54,52,54,52,144,58,54,52,4658,63,146,58,54,52,54,58,54,52,54,53,54,52,136,58,151,58,151,58,54,58,143,58,151,58,150,58,53,53,149,58,4237,64,145,58,53,58,58,53,53,58,54,58,122,58,53,53,53,58,54,52,139,58,54,52,54,52,54,52,144,58,54,52');">
-          <input type='button' value='チャンネルDown' onClick="remocon('85,124,58,54,53,54,53,53,53,53,58,53,53,134,58,53,53,53,58,141,58,53,58,58,53,53,53,134,58,53,53,4655,64,145,58,53,58,54,52,54,52,54,52,137,58,54,52,149,58,151,58,54,53,149,58,151,58,152,58,54,52,149,58,4241,63,145,58,54,53,53,53,53,53,53,53,53,53,141,58,53,53,53,53,147,58,53,53,58,53,53,58,134,58,53,53');">
-        </div>
-        <div data-role="controlgroup">
-          <input type='button' value='音量Up' onClick="remocon('86,124,58,58,53,53,53,53,53,53,53,53,53,53,58,128,58,53,53,149,58,53,58,54,53,54,52,139,58,54,58,4650,63,146,58,54,58,54,53,53,53,54,52,138,58,151,58,54,52,149,58,54,52,149,58,151,58,150,58,53,53,148,58,4240,64,145,58,53,53,53,53,53,53,53,53,53,53,53,53,138,58,53,53,148,58,53,53,54,52,54,58,140,58,54,52,4655,63,146,58,54,52,54,52,59,52,54,53,138,58,151,58,54,52,149,58,54,58,143,64,146,58,151,58,53,53,148,58');">
-          <input type='button' value='音量Down' onClick="remocon('85,124,58,53,53,53,53,53,53,53,53,142,58,53,53,148,58,53,53,149,58,54,52,54,52,54,52,144,58,54,52,4551,63,146,58,54,52,59,53,54,52,54,52,54,53,135,58,54,53,149,62,54,53,144,58,151,58,150,58,53,53,148,58,4345,64,145,58,53,53,53,53,53,53,53,53,142,58,53,58,144,58,53,53,148,58,54,53,54,52,54,52,144,58,59,58');">
-        </div>
-      </div>
-    </div>
+		    <div class="ui-block-a"><button class="ui-btn ui-icon-carat-l ui-btn-icon-left" value="0x83C03F">CH-</button></div>
+		    <div class="ui-block-b"><button class="ui-btn ui-icon-check ui-btn-icon-left" value="0x83C837">GO</button></div>
+		    <div class="ui-block-c"><button class="ui-btn ui-icon-carat-r ui-btn-icon-left" value="0x83C23D">CH+</button></div>
 
-    <div data-role='page' id='light'>
-      <div data-role='header'><h1>リビングの電気</h1></div>
-      <div data-role='content'>
-        <input type='button' value='点灯/消灯' onClick="remocon('138,58,109,59,53,89,53,115,58,107,58,113,136,58,53,87,52,118,58,109,58,108,58,786,138,58,109,58,53,88,52,119,58,110,64,102,137,59,52,88,53,118,58,110,58,110,58,783,138,58,110,59,52,87,53,118,58,110,58,110,135,58,53,87,53,118,58,110,58,110,58,782,138,58,110,58,53,87,53,118,58,110,58,110,135,58,53,87,52,118,58,110,58,110,58,783,138,59,109,59,53,87,53,118,58,110,58,110,135,59,53,87,53,118,58,110,58,108,58,786,138,58,110,59,53,87,53,117,58,110,58,110,136,58,53,86,53,118,58,110,58,107,60,783,138,59,108,58,53,90,52,113,58,110,58,110,138,59,52,89,53,112,58,110,58,110,58,785,138,58,110,59,52,89,58,107,63,105,58,109,138,59,53,88,53,112,58,110,58,110,58');">
-        <input type='button' value='高速' onClick="remocon('135,64,106,58,53,88,52,118,58,110,58,110,58,110,58,110,58,110,58,110,58,110,132,709,134,58,113,59,52,89,53,115,58,110,58,110,64,104,58,110,58,110,58,110,58,110,135,706,138,59,108,58,53,90,58,110,58,109,58,110,58,110,58,110,58,110,58,110,58,110,134,706,138,59,109,59,53,89,53,115,58,110,58,110,58,110,58,110,58,110,58,110,63,105,134,707,138,58,110,59,52,90,53,115,64,104,58,110,58,110,58,109,63,105,58,110,58,110,135,706,135,59,80,63,53,117,58,110,58,110,58,110,58,110,58,110,64,105,58,110,58,110,135,706,135,58,72,72,53,117,58,110,58,110,58,109,58,110,58,110,58,110,58,110,58,110,135,706,135,58,69,74,53,118,58,110,64,104,58,111,58,110,58,110,58,110,58,110,58,110,63');">
-      </div>
-    </div>
+		    <div class="ui-block-a"><button class="ui-btn ui-icon-bars ui-btn-icon-left" value="0x8320DF">menu</button></div>
+		    <div class="ui-block-b"><button class="ui-btn ui-icon-carat-d ui-btn-icon-left" value="0x8328D7">Vol-</button></div>
+		    <div class="ui-block-c"><button class="ui-btn ui-icon-back ui-btn-icon-left" value="0x8322DD">back</button></div>
 
-    <div data-role='page' id='dvdmate'>
-      <div data-role='header'><h1>Disny DVD mate</h1></div>
-      <div data-role='content'>
-        <input type='button' value='再生' onClick="remocon('902,440,63,54,59,163,60,54,58,53,58,53,57,53,59,53,57,53,57,160,63,160,63,161,64,160,64,160,63,160,63,163,60,161,62,53,57,53,59,53,57,160,63,161,63,54,56,161,62,54,64,155,63,158,62,161,63,54,64,54,52,159,68,53,54,158,65,3852,904,214,71,9562,905,216,63');">
-        <input type='button' value='停止' onClick="remocon('902,440,63,54,59,158,66,54,56,54,60,54,55,54,59,54,56,54,60,156,63,161,64,160,64,160,63,160,63,160,63,158,66,158,66,158,65,54,56,54,58,158,63,54,59,59,54,158,63,54,59,54,56,160,63,160,64,54,58,158,63,160,63,54,59,158,66,3851,905,213,65,9564,907,216,64');">
-      </div>
-    </div>
-  </div>
-</body>
+		    <div class="ui-block-a"><button class="ui-btn" value="0x83A05F">NHK</button></div>
+		    <div class="ui-block-b"><button class="ui-btn" value="0x83A857">教育</button></div>
+		    <div class="ui-block-c"><button class="ui-btn" value="0x83A25D">TVK</button></div>
+
+		    <div class="ui-block-a"><button class="ui-btn" value="0x83609F">日テレ</button></div>
+		    <div class="ui-block-b"><button class="ui-btn" value="0x836897">テレ朝</button></div>
+		    <div class="ui-block-c"><button class="ui-btn" value="0x83629D">TBS</button></div>
+
+		    <div class="ui-block-a"><button class="ui-btn" value="0x83E01F">テレ東</button></div>
+		    <div class="ui-block-b"><button class="ui-btn" value="0x83E817">フジ</button></div>
+		    <div class="ui-block-c"><button class="ui-btn" value="0x83E21D">9</button></div>
+
+		    <div class="ui-block-a"><button class="ui-btn" value="0x8310EF">10</button></div>
+		    <div class="ui-block-b"><button class="ui-btn" value="0x8318E7">11</button></div>
+		    <div class="ui-block-c"><button class="ui-btn" value="0x8312ED">12</button></div>
+
+		    <div class="ui-block-a"><button class="ui-btn" value="0x832AD5">天気</button></div>
+		    <div class="ui-block-b"><button class="ui-btn" value="0x83AA55">Mute</button></div>
+		    <div class="ui-block-c"><button class="ui-btn" value="0x836A95">番組表</button></div>
+		</fieldset>
+	    </div>
+	</div>
+	<div data-role='page' id='light'>
+	    <div data-role='header'><h1>リビングの電気</h1></div>
+	    <div data-role='content'>
+		<input type='button' value='点灯/消灯' onClick="remocon('138,58,109,59,53,89,53,115,58,107,58,113,136,58,53,87,52,118,58,109,58,108,58,786,138,58,109,58,53,88,52,119,58,110,64,102,137,59,52,88,53,118,58,110,58,110,58,783,138,58,110,59,52,87,53,118,58,110,58,110,135,58,53,87,53,118,58,110,58,110,58,782,138,58,110,58,53,87,53,118,58,110,58,110,135,58,53,87,52,118,58,110,58,110,58,783,138,59,109,59,53,87,53,118,58,110,58,110,135,59,53,87,53,118,58,110,58,108,58,786,138,58,110,59,53,87,53,117,58,110,58,110,136,58,53,86,53,118,58,110,58,107,60,783,138,59,108,58,53,90,52,113,58,110,58,110,138,59,52,89,53,112,58,110,58,110,58,785,138,58,110,59,52,89,58,107,63,105,58,109,138,59,53,88,53,112,58,110,58,110,58');">
+		<input type='button' value='高速' onClick="remocon('135,64,106,58,53,88,52,118,58,110,58,110,58,110,58,110,58,110,58,110,58,110,132,709,134,58,113,59,52,89,53,115,58,110,58,110,64,104,58,110,58,110,58,110,58,110,135,706,138,59,108,58,53,90,58,110,58,109,58,110,58,110,58,110,58,110,58,110,58,110,134,706,138,59,109,59,53,89,53,115,58,110,58,110,58,110,58,110,58,110,58,110,63,105,134,707,138,58,110,59,52,90,53,115,64,104,58,110,58,110,58,109,63,105,58,110,58,110,135,706,135,59,80,63,53,117,58,110,58,110,58,110,58,110,58,110,64,105,58,110,58,110,135,706,135,58,72,72,53,117,58,110,58,110,58,109,58,110,58,110,58,110,58,110,58,110,135,706,135,58,69,74,53,118,58,110,64,104,58,111,58,110,58,110,58,110,58,110,58,110,63');">
+	    </div>
+	</div>
+
+	<div data-role='page' id='dvdmate'>
+	    <div data-role='header'><h1>Disny DVD mate</h1></div>
+	    <div data-role='content'>
+		<input type='button' value='再生' onClick="remocon('902,440,63,54,59,163,60,54,58,53,58,53,57,53,59,53,57,53,57,160,63,160,63,161,64,160,64,160,63,160,63,163,60,161,62,53,57,53,59,53,57,160,63,161,63,54,56,161,62,54,64,155,63,158,62,161,63,54,64,54,52,159,68,53,54,158,65,3852,904,214,71,9562,905,216,63');">
+		<input type='button' value='停止' onClick="remocon('902,440,63,54,59,158,66,54,56,54,60,54,55,54,59,54,56,54,60,156,63,161,64,160,64,160,63,160,63,160,63,158,66,158,66,158,65,54,56,54,58,158,63,54,59,59,54,158,63,54,59,54,56,160,63,160,64,54,58,158,63,160,63,54,59,158,66,3851,905,213,65,9564,907,216,64');">
+	    </div>
+	</div>
+	</div>
+    </body>
 </html>
